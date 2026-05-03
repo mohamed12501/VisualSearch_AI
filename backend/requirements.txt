@@ -1,0 +1,9 @@
+django
+requests
+django-cors-headers
+python-dotenv
+flask
+groq
+google-search-results
+gunicorn
+supervisor

@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  # 1. Next.js Frontend
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_DJANGO_URL=http://localhost:8000
+    depends_on:
+      - django
+
+  # 2. Django Orchestrator
+  django:
+    build:
+      context: ./VisualSearch_AI_django_versio
+      dockerfile: ../Dockerfile.django
+    ports:
+      - "8000:8000"
+    environment:
+      - CAPTION_SERVICE_URL=http://caption-service:5001/process
+      - QUERY_SERVICE_URL=http://query-service:5002/process
+      - SEARCH_SERVICE_URL=http://search-service:5003/process
+      - SUMMARY_SERVICE_URL=http://summary-service:5004/process
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - SERPAPI_KEY=${SERPAPI_KEY}
+    depends_on:
+      - caption-service
+      - query-service
+      - search-service
+      - summary-service
+
+  # 3. Caption Microservice
+  caption-service:
+    build:
+      context: ./VisualSearch_AI_django_versio
+      dockerfile: ../Dockerfile.microservice
+    environment:
+      - SERVICE_FILE=python_microservices/caption_service.py
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    ports:
+      - "5001:5001"
+
+  # 4. Query Microservice
+  query-service:
+    build:
+      context: ./VisualSearch_AI_django_versio
+      dockerfile: ../Dockerfile.microservice
+    environment:
+      - SERVICE_FILE=python_microservices/query_service.py
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    ports:
+      - "5002:5002"
+
+  # 5. Search Microservice
+  search-service:
+    build:
+      context: ./VisualSearch_AI_django_versio
+      dockerfile: ../Dockerfile.microservice
+    environment:
+      - SERVICE_FILE=python_microservices/search_service.py
+      - SERPAPI_KEY=${SERPAPI_KEY}
+    ports:
+      - "5003:5003"
+
+  # 6. Summary Microservice
+  summary-service:
+    build:
+      context: ./VisualSearch_AI_django_versio
+      dockerfile: ../Dockerfile.microservice
+    environment:
+      - SERVICE_FILE=python_microservices/summary_service.py
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    ports:
+      - "5004:5004"
