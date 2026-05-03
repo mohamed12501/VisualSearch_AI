@@ -1,0 +1,10 @@
+{
+  "name": "visual-search-superapp",
+  "version": "1.0.0",
+  "description": "Unified VisualSearch AI App (Frontend + Backend + Microservices)",
+  "scripts": {
+    "install:all": "cd frontend && npm install && cd ../backend && pip install -r requirements.txt",
+    "docker:build": "docker build -t visual-search-superapp .",
+    "docker:run": "docker run -p 80:80 visual-search-superapp"
+  }
+}

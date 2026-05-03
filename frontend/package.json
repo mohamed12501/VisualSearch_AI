@@ -1,0 +1,48 @@
+{
+  "name": "visualsearch_ai",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "ms:caption": "node microservices/caption-service.js",
+    "ms:query": "node microservices/query-service.js",
+    "ms:search": "node microservices/search-service.js",
+    "ms:summary": "node microservices/summary-service.js"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.2.4",
+    "autoprefixer": "^10.5.0",
+    "axios": "^1.15.2",
+    "cloudinary": "^2.10.0",
+    "clsx": "^2.1.1",
+    "formidable": "^3.5.4",
+    "framer-motion": "^12.38.0",
+    "groq-sdk": "^1.1.2",
+    "lucide-react": "^1.14.0",
+    "next": "^16.2.4",
+    "postcss": "^8.5.13",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "serpapi": "^2.2.1",
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss": "^4.2.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@eslint/js": "^10.0.1",
+    "@rolldown/plugin-babel": "^0.2.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "eslint": "^10.2.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.5.0",
+    "vite": "^8.0.10"
+  }
+}
