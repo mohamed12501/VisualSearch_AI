@@ -39,7 +39,7 @@ WORKDIR /app/frontend
 RUN npm install --only=production
 
 # Copy Nginx and Supervisor configs
-COPY nginx.conf /etc/nginx/sites-available/default
+COPY nginx.conf /etc/nginx/sites-enabled/default
 COPY supervisord.conf /etc/supervisord.conf
 
 # Expose port 80
