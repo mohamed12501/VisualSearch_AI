@@ -4,8 +4,10 @@ import PipelineStatus from './PipelineStatus';
 import CaptionCard from './CaptionCard';
 import ResultsList from './ResultsList';
 import SummaryCard from './SummaryCard';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, LogOut, User as UserIcon } from 'lucide-react';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 const Dashboard = () => {
   const [currentStep, setCurrentStep] = useState('upload');
@@ -24,6 +26,25 @@ const Dashboard = () => {
   });
 
   const [error, setError] = useState(null);
+  const [user, setUser] = useState(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await axios.post('/api/auth/logout');
+      localStorage.removeItem('user');
+      router.push('/login');
+    } catch (err) {
+      console.error('Logout failed:', err);
+    }
+  };
 
   const startAnalysis = async (imageUrl, publicId) => {
     setPipelineStatus({
@@ -77,9 +98,25 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen pt-12 pb-24 px-4">
       <div className="max-w-[900px] mx-auto">
-        <header className="mb-12 text-center md:text-left">
-          <h1 className="text-[32px] font-bold text-primary mb-2">VisualSearch AI</h1>
-          <p className="text-text-muted text-[15px]">Upload a product image to discover research, pricing, and details.</p>
+        <header className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="text-center md:text-left">
+            <h1 className="text-[32px] font-bold text-primary mb-2">VisualSearch AI</h1>
+            <p className="text-text-muted text-[15px]">Upload a product image to discover research, pricing, and details.</p>
+          </div>
+          
+          <div className="flex items-center justify-center md:justify-end gap-4">
+            <div className="flex items-center gap-2 px-4 py-2 bg-white border border-border rounded-full shadow-sm">
+              <UserIcon size={14} className="text-secondary" />
+              <span className="text-xs font-bold text-primary">{user || 'Loading...'}</span>
+            </div>
+            <button 
+              onClick={handleLogout}
+              className="p-2.5 rounded-full bg-white border border-border text-text-muted hover:text-red-500 hover:border-red-200 transition-all shadow-sm"
+              title="Logout"
+            >
+              <LogOut size={18} />
+            </button>
+          </div>
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-[40%_60%] gap-12">
