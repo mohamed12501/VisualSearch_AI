@@ -1,0 +1,34 @@
+# flyctl launch added from backend\.gitignore
+# Next.js
+backend\**\.next
+backend\**\out
+backend\**\build
+
+# Production
+backend\**\build
+backend\**\dist
+
+# Dependencies
+backend\**\node_modules
+
+# Environment
+backend\**\.env
+backend\**\.env.local
+backend\**\.env.development.local
+backend\**\.env.test.local
+backend\**\.env.production.local
+backend\**\.env*.local
+
+# Debug
+backend\**\npm-debug.log*
+backend\**\yarn-debug.log*
+backend\**\yarn-error.log*
+
+# Misc
+backend\**\.DS_Store
+backend\**\*.pem
+
+
+# flyctl launch added from frontend\.gitignore
+frontend\**\node_modules
+fly.toml
