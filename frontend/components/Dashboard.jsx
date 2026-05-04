@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ImageUploader from './ImageUploader';
 import PipelineStatus from './PipelineStatus';
 import CaptionCard from './CaptionCard';
@@ -6,7 +6,6 @@ import ResultsList from './ResultsList';
 import SummaryCard from './SummaryCard';
 import { Sparkles, LogOut, User as UserIcon } from 'lucide-react';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 const Dashboard = () => {
